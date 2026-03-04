@@ -1,0 +1,66 @@
+# vendor.prop — Samsung Galaxy A01q (SM-A015M)
+# Propiedades del vendor verificadas desde getprop real
+# Firmware: A015MUBS5CWI4
+
+# ============================================================
+# BUILD INFO — vendor
+# ============================================================
+ro.vendor.build.security_patch=2023-08-01
+ro.vendor.build.version.release=12
+ro.vendor.build.version.sdk=31
+
+# ============================================================
+# AUDIO — propiedades del vendor confirmadas por getprop
+# ============================================================
+vendor.audio.parser.ip.buffer.size=262144
+vendor.audio.playback.mch.downsample=true
+vendor.audio.safx.pbe.enabled=true
+vendor.audio.spkr_prot.tx.sampling_rate=48000
+vendor.audio.tunnel.encode=false
+vendor.audio.use.sw.alac.decoder=true
+vendor.audio.use.sw.ape.decoder=true
+vendor.audio.volume.headset.gain.depcal=true
+
+# Concurrencia de voz
+vendor.voice.conc.fallbackpath=deep-buffer
+vendor.voice.path.for.pcm.voip=true
+vendor.voice.playback.conc.disabled=true
+vendor.voice.record.conc.disabled=false
+vendor.voice.voip.conc.disabled=true
+
+# ============================================================
+# DISPLAY / GRALLOC — Adreno 505
+# vendor.gralloc.disable_ubwc=0 confirmado
+# ============================================================
+vendor.gralloc.disable_ubwc=0
+vendor.gralloc.enable_fb_ubwc=1
+vendor.display.disable_skip_validate=1
+
+# ============================================================
+# WIFI
+# vendor.wifi.dualconcurrent.interface=wlan0 confirmado
+# ============================================================
+vendor.wifi.dualconcurrent.interface=wlan0
+
+# ============================================================
+# FM Radio — vendor.hw.fm.init=0 confirmado
+# ============================================================
+vendor.hw.fm.init=0
+
+# ============================================================
+# BLUETOOTH
+# vendor.bluetooth_fw_ver del getprop
+# ============================================================
+vendor.bluetooth_fw_ver=JDM_No Firmware
+
+# ============================================================
+# CAMERA
+# ============================================================
+vendor.camera.aux.packagelist=
+vendor.camera.halversion=3
+
+# ============================================================
+# QCOM misc
+# ============================================================
+vendor.qc.sdk.vs.enabled=true
+vendor.qc.sdk.audio.fluencetype=fluence

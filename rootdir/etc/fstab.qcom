@@ -1,0 +1,93 @@
+# fstab.qcom — Samsung Galaxy A01q (SM-A015M)
+# Verificado desde: adb shell ls -la /dev/block/bootdevice/by-name/
+#                   adb shell df -h
+#                   adb shell cat /proc/partitions
+# Boot device: soc/7824900.sdhci — ro.boot.bootdevice confirmado
+# Kernel 4.9.227 — F2FS + ICE file-based encryption
+
+# ============================================================
+# PARTICIONES DINÁMICAS — subparticiones de super (mmcblk0p72)
+# Montadas via device-mapper dm-verity
+# ============================================================
+system                                                      /system         ext4    ro,barrier=1,discard                wait,avb=vbmeta,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
+product                                                     /product        ext4    ro,barrier=1,discard                wait,avb,logical,first_stage_mount
+vendor                                                      /vendor         ext4    ro,barrier=1,discard                wait,avb,logical,first_stage_mount
+odm                                                         /odm            ext4    ro,errors=panic                     wait,avb,logical,first_stage_mount
+
+# ============================================================
+# METADATA — mmcblk0p71 (32768 bloques = 32MB)
+# Requerido para Dynamic Partitions — va antes del userdata
+# ============================================================
+/dev/block/platform/soc/7824900.sdhci/by-name/metadata     /metadata       ext4    noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic,sync    wait,first_stage_mount,formattable,check
+
+# ============================================================
+# SAMSUNG PARTICIONES FÍSICAS (NO están en super)
+# prism  → mmcblk0p73 (200MB) — carrier customization OMC (ARO=Argentina)
+# optics → mmcblk0p74 (20MB)  — carrier config resources
+# Usan dm-verity pero son físicas — confirmado por df -h
+# ============================================================
+/dev/block/platform/soc/7824900.sdhci/by-name/prism         /prism          ext4    ro,barrier=1,discard                nofail,avb,first_stage_mount
+/dev/block/platform/soc/7824900.sdhci/by-name/optics        /optics         ext4    ro,barrier=1,discard                nofail,avb,first_stage_mount
+
+# ============================================================
+# USERDATA — mmcblk0p78 (≈24GB)
+# F2FS + ICE encryption — ro.crypto.type=file confirmado
+# ============================================================
+/dev/block/bootdevice/by-name/userdata                      /data           f2fs    noatime,nosuid,nodev,discard,usrquota,grpquota,fsync_mode=nobarrier,reserve_root=32768,resgid=5678    latemount,wait,check,fileencryption=ice,quota,reservedsize=128M,checkpoint=fs
+
+# ============================================================
+# CACHE — mmcblk0p75 (143360 bloques = 140MB)
+# Partición dedicada — dispositivo NO es A/B
+# ============================================================
+/dev/block/bootdevice/by-name/cache                         /cache          ext4    noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic    wait,check
+
+# ============================================================
+# MISC / FRP
+# config → mmcblk0p59
+# misc   → mmcblk0p55
+# ============================================================
+/dev/block/bootdevice/by-name/config                        /frp            emmc    defaults                            defaults
+/dev/block/bootdevice/by-name/misc                          /misc           emmc    defaults                            defaults,first_stage_mount
+
+# ============================================================
+# FIRMWARE / DSP
+# dsp     → mmcblk0p5  (ext4, 16MB) — DSP firmware
+# apnhlos → mmcblk0p67 (vfat, 64MB) — radio modem firmware
+# modem   → mmcblk0p68 (vfat, 64MB) — modem binaries
+# Confirmado por df -h: /vendor/firmware_mnt, /vendor/firmware-modem
+# ============================================================
+/dev/block/bootdevice/by-name/dsp                           /vendor/dsp             ext4    ro,nosuid,nodev,barrier=1           wait
+/dev/block/bootdevice/by-name/apnhlos                       /vendor/firmware_mnt    vfat    ro,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0    wait
+/dev/block/bootdevice/by-name/modem                         /vendor/firmware-modem  vfat    ro,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0    wait
+
+# ============================================================
+# PERSIST / EFS — datos de fábrica (IMEI, calibración)
+# persist  → mmcblk0p54 (32MB)
+# sec_efs  → mmcblk0p48 (16MB) — montado en /efs (confirmado df -h)
+# efs      → mmcblk0p49 (16MB) — montado en /mnt/vendor/efs
+# ============================================================
+/dev/block/bootdevice/by-name/persist                       /mnt/vendor/persist     ext4    noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic    wait,check
+/dev/block/bootdevice/by-name/sec_efs                       /efs                    ext4    noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic    wait,check
+/dev/block/bootdevice/by-name/efs                           /mnt/vendor/efs         ext4    noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic    wait,check
+
+# ============================================================
+# SAMSUNG KNOX / ODE — cifrado de datos
+# keydata   → mmcblk0p70 (16MB) — confirmado df -h: /keydata
+# keyrefuge → mmcblk0p69 (16MB) — confirmado df -h: /keyrefuge
+# ============================================================
+/dev/block/bootdevice/by-name/keydata                       /keydata        ext4    noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic    wait,check,fileencryption=ice,nofail
+/dev/block/bootdevice/by-name/keyrefuge                     /keyrefuge      ext4    noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic    wait,check,fileencryption=ice,nofail
+
+# ============================================================
+# OMR — recursos del operador (ringtones, imágenes)
+# omr → mmcblk0p76 (20MB) — persist.sys.omc_respath=/omr/res
+# ============================================================
+/dev/block/bootdevice/by-name/omr                           /omr            ext4    noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic    wait,check,nofail
+
+# ============================================================
+# ALMACENAMIENTO EXTERNO
+# SD card: soc/7864900.sdhci (SDIO secundario)
+# USB OTG: 78db000.usb
+# ============================================================
+/devices/platform/soc/7864900.sdhci/mmc_host*               auto            vfat    defaults                            voldmanaged=sdcard:auto
+/devices/platform/soc/78db000.usb/msm_hsusb_host*           auto            auto    defaults                            voldmanaged=usb:auto

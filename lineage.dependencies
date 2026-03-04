@@ -1,0 +1,7 @@
+[
+  {
+    "repository": "android_vendor_samsung_a01q",
+    "target_path": "vendor/samsung/a01q",
+    "branch": "lineage-20"
+  }
+]

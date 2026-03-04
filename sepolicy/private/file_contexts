@@ -1,0 +1,18 @@
+# sepolicy/private/file_contexts additions
+# Samsung Galaxy A01q (SM-A015M)
+
+# EFS partitions
+/efs(/.*)?                          u:object_r:efs_file:s0
+/mnt/vendor/efs(/.*)?               u:object_r:efs_file:s0
+
+# OMC / Carrier customization
+/prism(/.*)?                        u:object_r:system_file:s0
+/optics(/.*)?                       u:object_r:system_file:s0
+/omr(/.*)?                          u:object_r:system_file:s0
+
+# Knox / ODE key storage
+/keydata(/.*)?                      u:object_r:keystore_data_file:s0
+/keyrefuge(/.*)?                    u:object_r:keystore_data_file:s0
+
+# GNSS service
+/vendor/bin/gnss_service             u:object_r:gnss_service_exec:s0
