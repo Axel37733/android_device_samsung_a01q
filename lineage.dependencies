@@ -1,7 +1,12 @@
 [
   {
-    "repository": "android_vendor_samsung_a01q",
+    "repository": "Axel37733/android_vendor_samsung_a01q",
     "target_path": "vendor/samsung/a01q",
+    "branch": "lineage-20"
+  },
+  {
+    "repository": "Axel37733/android_kernel_samsung_msm8937",
+    "target_path": "kernel/samsung/msm8937",
     "branch": "lineage-20"
   }
 ]
