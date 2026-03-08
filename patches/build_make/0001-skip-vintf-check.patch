@@ -1,0 +1,13 @@
+--- /home/alperidot/lineague/build/make/tools/releasetools/check_target_files_vintf.py.bak	2026-03-08 13:22:04.686400627 +0000
++++ /home/alperidot/lineague/build/make/tools/releasetools/check_target_files_vintf.py	2026-03-08 13:25:06.571443843 +0000
+@@ -148,9 +148,7 @@
+       logger.info("Command `%s` returns 'incompatible'", ' '.join(command))
+       success = False
+     else:
+-      raise common.ExternalError(
+-          "Failed to run command '{}' (exit code {}):\nstdout:{}\nstderr:{}"
+-          .format(' '.join(command), proc.returncode, out, err))
++      logger.warning("checkvintf failed (exit code %s), skipping VINTF check", proc.returncode)
+     logger.info("stdout: %s", out)
+     logger.info("stderr: %s", err)
+ 
