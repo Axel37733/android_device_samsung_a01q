@@ -30,3 +30,6 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRIVATE_BUILD_DESC="a01qub-user 12 SP1A.210812.016 A015MUBS5CWI4 release-keys"
 
 BUILD_FINGERPRINT := samsung/a01qub/a01q:12/SP1A.210812.016/A015MUBS5CWI4:user/release-keys
+
+# OTA assert para aceptar ambas variantes del dispositivo
+PRODUCT_OTA_ASSERT_DEVICE := a01q,m01q,a01qsks
