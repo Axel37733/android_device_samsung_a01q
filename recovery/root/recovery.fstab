@@ -1,0 +1,4 @@
+# mount point  fstype  device  flags
+/system        ext4    /dev/block/bootdevice/by-name/system    flags=display="System"
+/data          ext4    /dev/block/bootdevice/by-name/userdata  flags=display="Data"
+/cache         ext4    /dev/block/bootdevice/by-name/cache     flags=display="Cache"

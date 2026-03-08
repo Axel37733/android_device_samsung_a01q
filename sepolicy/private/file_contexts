@@ -2,7 +2,7 @@
 # Samsung Galaxy A01q (SM-A015M)
 
 # EFS partitions
-/efs(/.*)?                          u:object_r:efs_file:s0
+# /efs(/.*)?                          u:object_r:efs_file:s0 # commented: duplicate
 /mnt/vendor/efs(/.*)?               u:object_r:efs_file:s0
 
 # OMC / Carrier customization
@@ -15,4 +15,4 @@
 /keyrefuge(/.*)?                    u:object_r:keystore_data_file:s0
 
 # GNSS service
-/vendor/bin/gnss_service             u:object_r:gnss_service_exec:s0
+# /vendor/bin/gnss_service             u:object_r:gnss_service_exec:s0 # commented: conflicts with vendor hal_gnss_default_exec

@@ -4,7 +4,7 @@ DEVICE_PATH := device/samsung/a01q
 # BASE PRODUCT
 # ro.product.first_api_level=29 → lanzado con Android 10 (Q)
 # ============================================================
-$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_q.mk)
+PRODUCT_SHIPPING_API_LEVEL := 29
 
 # Dynamic Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
@@ -26,7 +26,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(DEVICE_PATH) \
-    hardware/qcom-caf/msm8937
+    hardware/qcom-caf/msm8953
 
 # ============================================================
 # OVERLAYS
@@ -54,10 +54,7 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.effect@6.0-impl:32 \
     android.hardware.soundtrigger@2.3-impl \
     android.hardware.audio.service \
-    audio.a2dp.default \
     audio.primary.msm8937 \
-    audio.r_submix.default \
-    audio.usb.default \
     libaudio-resampler \
     libqcomvisualizer \
     libqcomvoiceprocessing \
@@ -285,3 +282,5 @@ PRODUCT_PACKAGES += \
 # ============================================================
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.first_api_level=29
+
+TARGET_FS_CONFIG_GEN += device/samsung/a01q/config.fs
