@@ -54,56 +54,29 @@ BOARD_KERNEL_PAGESIZE    := 2048
 BOARD_RAMDISK_OFFSET     := 0x02000000
 BOARD_KERNEL_TAGS_OFFSET := 0x01e00000
 BOARD_KERNEL_OFFSET      := 0x00008000
-BOARD_DTB_OFFSET         := 0x01f00000
-# Imagen ARM64 (confirmado: arch/arm64/boot/Image en README)
-BOARD_KERNEL_IMAGE_NAME  := Image
+BOARD_DTB_OFFSET         := 0x101f00000
+BOARD_HEADER_SIZE        := 1660
+BOARD_DTB_SIZE           := 859398
+BOARD_KERNEL_IMAGE_NAME  := Image.gz-dtb
 BOARD_BOOT_HEADER_VERSION := 2
 BOARD_MKBOOTIMG_ARGS     += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
-BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200,n8
-BOARD_KERNEL_CMDLINE += androidboot.hardware=qcom
-BOARD_KERNEL_CMDLINE += user_debug=30
-BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x237
-BOARD_KERNEL_CMDLINE += ehci-hcd.park=3
-BOARD_KERNEL_CMDLINE += androidboot.bootdevice=7824900.sdhci
-BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=1
-BOARD_KERNEL_CMDLINE += earlycon=msm_hsl_uart,0x78B0000
-BOARD_KERNEL_CMDLINE += vmalloc=300M
-BOARD_KERNEL_CMDLINE += androidboot.usbconfigfs=true
-BOARD_KERNEL_CMDLINE += loop.max_part=7
-# NOTA: selinux=permissive solo para desarrollo — cambiar a enforcing en release
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=null androidboot.console=ttyMSM0 androidboot.hardware=qcom user_debug=30 msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 androidboot.usbconfigfs=true loop.max_part=7 printk.devkmsg=on androidboot.selinux=permissive
 
-# Kernel source
-TARGET_KERNEL_SOURCE := kernel/samsung/msm8937
+# Kernel - prebuilt (extraido del stock A015MUBS5CWI4)
+TARGET_FORCE_PREBUILT_KERNEL := true
+TARGET_PREBUILT_KERNEL       := $(DEVICE_PATH)/prebuilt/kernel
+TARGET_PREBUILT_DTB          := $(DEVICE_PATH)/prebuilt/dtb.img
+BOARD_PREBUILT_DTBIMAGE_DIR  := $(DEVICE_PATH)/prebuilt
+BOARD_PREBUILT_DTBOIMAGE     := $(DEVICE_PATH)/prebuilt/dtbo.img
 
-# Defconfig confirmado por README_Kernel.txt
-# samsung/a01q_eur_open_defconfig → para LineageOS usamos EUR (sin carrier locks)
-TARGET_KERNEL_CONFIG := samsung/a01q_eur_open_defconfig
-
-# Arquitectura del kernel: ARM64
-# El kernel es 64-bit aunque el userspace (ABI) sea 32-bit (armeabi-v7a)
-# Esto es "64-bit kernel + 32-bit userspace" — configuración real del dispositivo
+# Kernel source (para referencia, no se compila)
+TARGET_KERNEL_SOURCE      := kernel/samsung/msm8937
+TARGET_KERNEL_CONFIG      := samsung/a01q_eur_open_defconfig
 TARGET_KERNEL_ARCH        := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 
-# Toolchain — confirmado por README: aarch64-linux-android-4.9
-# LineageOS provee este toolchain en prebuilts/gcc/linux-x86/aarch64/
-TARGET_KERNEL_CROSS_COMPILE := aarch64-linux-android-
-
-# Clang — README indica clang 10.0 de vendor/qcom
-# LineageOS usa su propio clang, versión mínima compatible: clang-r383902
-TARGET_KERNEL_CLANG_COMPILE  := true
-TARGET_KERNEL_CLANG_VERSION  := r383902
-
-# CLANG_TRIPLE para kernel arm64 (confirmado por README)
-TARGET_KERNEL_ADDITIONAL_FLAGS := \
-    CLANG_TRIPLE=aarch64-linux-gnu- \
-    CONFIG_BUILD_ARM64_DT_OVERLAY=y \
-    DTC_EXT=$(pwd)/out/host/linux-x86/bin/dtc \
-    KCFLAGS="-w"
-
-# Device Tree Overlay — requerido (CONFIG_BUILD_ARM64_DT_OVERLAY=y en README)
+# Device Tree Overlay
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_SEPARATED_DTBO  := true
 
@@ -139,6 +112,13 @@ BOARD_SUPER_PARTITION_GROUPS := samsung_dynamic_partitions
 BOARD_SAMSUNG_DYNAMIC_PARTITIONS_PARTITION_LIST := system vendor product odm
 # super − 4MB overhead del metadata LP
 BOARD_SAMSUNG_DYNAMIC_PARTITIONS_SIZE := 3945791488
+
+BOARD_ROOT_EXTRA_FOLDERS := efs
+BOARD_ROOT_EXTRA_SYMLINKS := \
+        /vendor/dsp:/dsp \
+        /vendor/firmware_mnt:/firmware \
+        /mnt/vendor/persist:/persist \
+        /mnt/vendor/efs:/efs
 
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE  := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE  := ext4
