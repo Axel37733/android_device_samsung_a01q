@@ -81,7 +81,6 @@ BOARD_MKBOOTIMG_ARGS += \
 	--dtb $(TARGET_PREBUILT_DTB)
 
 # Kernel - prebuilt
-TARGET_FORCE_PREBUILT_KERNEL := true
 ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
 endif
@@ -92,6 +91,7 @@ TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_SOURCE := kernel/samsung/msm8937
 TARGET_KERNEL_CONFIG := a01q_open_defconfig
 TARGET_KERNEL_VERSION := 4.9
+TARGET_COMPILE_WITH_MSM_KERNEL := true
 
 # Partition Sizes
 BOARD_DTBOIMG_PARTITION_SIZE := 8388608
@@ -174,6 +174,39 @@ TARGET_LD_SHIM_LIBS := \
 TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE   := $(DEVICE_PATH)/compatibility_matrix.xml
+
+# Generate device framework matrix dynamically to satisfy VINTF check
+DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE := $(DEVICE_PATH)/device_framework_matrix.xml
+$(shell rm -f $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '<compatibility-matrix version="1.0" type="framework">' > $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="aidl" optional="true"><name>android.hardware.cas</name><version>1</version><interface><name>IMediaCasService</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>android.hardware.configstore</name><version>1.1</version><interface><name>ISurfaceFlingerConfigs</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="aidl" optional="true"><name>android.hardware.drm</name><version>1</version><interface><name>IDrmFactory</name><instance>clearkey</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>android.hardware.light</name><version>2.0</version><interface><name>ILight</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>android.hardware.vibrator</name><version>1.3</version><interface><name>IVibrator</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="aidl" optional="true"><name>android.hardware.wifi</name><version>2</version><interface><name>IWifi</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="aidl" optional="true"><name>android.hardware.wifi.hostapd</name><version>2</version><interface><name>IHostapd</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="aidl" optional="true"><name>android.hardware.wifi.supplicant</name><version>3</version><interface><name>ISupplicant</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.display.color</name><version>1.0</version><interface><name>IDisplayColor</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.display.config</name><version>2.0</version><interface><name>IDisplayConfig</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.display.postproc</name><version>1.0</version><interface><name>IDisplayPostproc</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.qti.esepowermanager</name><version>1.1</version><interface><name>IEsePowerManager</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.qti.hardware.bluetooth_sar</name><version>1.1</version><interface><name>IBluetoothSar</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.qti.hardware.btconfigstore</name><version>2.0</version><interface><name>IBTConfigStore</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.qti.hardware.capabilityconfigstore</name><version>1.0</version><interface><name>ICapabilityConfigStore</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.qti.hardware.dsp</name><version>1.0</version><interface><name>IDspService</name><instance>dspservice</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.qti.hardware.fstman</name><version>1.0</version><interface><name>IFstManager</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.qti.hardware.perf</name><version>2.2</version><interface><name>IPerf</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.qti.hardware.qseecom</name><version>1.0</version><interface><name>IQSEECom</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.qti.hardware.tui_comm</name><version>1.0</version><interface><name>ITuiComm</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.samsung.hardware.gnss</name><version>2.0</version><interface><name>ISehGnss</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.samsung.hardware.miscpower</name><version>2.0</version><interface><name>ISehMiscPower</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.samsung.hardware.radio.bridge</name><version>2.0</version><interface><name>ISehBridge</name><instance>slot1</instance><instance>slot2</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.samsung.hardware.radio.channel</name><version>2.0</version><interface><name>ISehChannel</name><instance>epdgd</instance><instance>epdgd2</instance><instance>imsd</instance><instance>imsd2</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.samsung.hardware.radio</name><version>2.1</version><interface><name>ISehRadio</name><instance>slot1</instance><instance>slot2</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.samsung.hardware.security.widevine.keyprov</name><version>1.0</version><interface><name>ISehWidevineKeyProvisioning</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>vendor.samsung.hardware.vibrator</name><version>2.2</version><interface><name>ISehVibrator</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '</compatibility-matrix>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
 
 # Display
 TARGET_SCREEN_DENSITY := 320
@@ -267,12 +300,11 @@ KERNEL_TOOLCHAIN_PREFIX := aarch64-linux-android-
 
 # Kernel Clang
 TARGET_KERNEL_CLANG_COMPILE := true
-TARGET_KERNEL_CLANG_VERSION := r450784d
+TARGET_KERNEL_CLANG_VERSION := r475365b
 TARGET_KERNEL_ADDITIONAL_FLAGS := LD=ld.lld HOSTLD=ld.lld
 
 # API Level
 BOARD_SHIPPING_API_LEVEL := 29
-BOARD_API_LEVEL := 29
 
 # Build broken flags
 BUILD_BROKEN_MISSING_REQUIRED_MODULES := true

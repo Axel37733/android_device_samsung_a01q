@@ -228,7 +228,7 @@ PRODUCT_PACKAGES += \
 
 # DRM
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.4-service.clearkey \
+    android.hardware.drm-service.clearkey \
     android.hardware.drm@1.4.vendor
 
 # fwk-detect
@@ -237,7 +237,7 @@ PRODUCT_PACKAGES += \
 
 # USB HAL
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service.basic
+    android.hardware.usb@1.0-service
 
 # Net
 PRODUCT_PACKAGES += \
@@ -333,7 +333,7 @@ PRODUCT_COPY_FILES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service \
+    android.hardware.wifi-service \
     libcld80211 \
     libwpa_client \
     hostapd \
@@ -397,3 +397,4 @@ PRODUCT_PACKAGES += \
 # Lights HAL
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.aw2013
+PRODUCT_SYSTEM_PROPERTIES += ro.kernel.ebpf.supported=false
