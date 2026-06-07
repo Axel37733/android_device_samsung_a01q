@@ -44,7 +44,8 @@ PRODUCT_SHIPPING_API_LEVEL := 29
 
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH)
+    $(LOCAL_PATH) \
+    vendor/qcom/opensource/libfmjni \
 
 # Ramdisk
 PRODUCT_PACKAGES += \

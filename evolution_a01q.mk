@@ -19,13 +19,19 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 # Inherit from a01q device
 $(call inherit-product, device/samsung/a01q/device.mk)
 
+# Disable strict product package enforcement (EPPE)
+TARGET_DISABLE_EPPE := true
+
+# GMS
+TARGET_USES_PICO_GAPPS := true
+
 # Inherit some common Lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+$(call inherit-product, vendor/evolution/config/common_full_phone.mk)
 
 PRODUCT_CHARACTERISTICS := default
 
 PRODUCT_DEVICE := a01q
-PRODUCT_NAME := lineage_a01q
+PRODUCT_NAME := evolution_a01q
 PRODUCT_BRAND := samsung
 PRODUCT_MODEL := SM-A015F
 PRODUCT_MANUFACTURER := samsung
