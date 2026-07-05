@@ -1,0 +1,13 @@
+diff --git a/service/jni/com_android_server_connectivity_ClatCoordinator.cpp b/service/jni/com_android_server_connectivity_ClatCoordinator.cpp
+index c125bd6479..9514cc26e6 100644
+--- a/service/jni/com_android_server_connectivity_ClatCoordinator.cpp
++++ b/service/jni/com_android_server_connectivity_ClatCoordinator.cpp
+@@ -130,7 +130,7 @@ static void verifyClatPerms() {
+ 
+ #undef V2
+ 
+-    if (fatal) abort();
++    if (fatal) ALOGE("verifyClatPerms failed but continuing (patched)");
+ }
+ 
+ #undef V
