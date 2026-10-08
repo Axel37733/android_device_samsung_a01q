@@ -1,6 +1,6 @@
 cc_binary {
     name: "android.hardware.sensors@1.0-service-a01q",
-    stem: "android.hardware.sensors@1.0-service",
+    overrides: ["android.hardware.sensors@1.0-service"],
     relative_install_path: "hw",
     vendor: true,
     init_rc: ["android.hardware.sensors@1.0-service.rc"],

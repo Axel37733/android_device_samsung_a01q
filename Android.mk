@@ -21,6 +21,7 @@ include $(call all-makefiles-under,$(LOCAL_PATH))
 
 # builds require us to create the mount points at compile time.
 # Just creating it for all cases since it does not hurt.
+# Trigger rebuild to regenerate corrupted ninja file
 FIRMWARE_MOUNT_POINT := $(TARGET_OUT_VENDOR)/firmware_mnt
 $(FIRMWARE_MOUNT_POINT): $(LOCAL_INSTALLED_MODULE)
 	@echo "Creating $(FIRMWARE_MOUNT_POINT)"
