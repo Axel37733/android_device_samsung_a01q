@@ -124,6 +124,7 @@ BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
 
 # Dynamic Partition
+AB_OTA_UPDATER := false
 BOARD_SUPER_PARTITION_SIZE := 3949985792
 BOARD_SUPER_PARTITION_GROUPS := samsung_dynamic_partitions
 BOARD_SAMSUNG_DYNAMIC_PARTITIONS_SIZE := 3945791488
@@ -178,7 +179,7 @@ DEVICE_MATRIX_FILE   := $(DEVICE_PATH)/compatibility_matrix.xml
 # Generate device framework matrix dynamically to satisfy VINTF check
 DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE := $(DEVICE_PATH)/device_framework_matrix.xml
 $(shell rm -f $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
-$(shell echo '<compatibility-matrix version="1.0" type="framework">' > $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '<compatibility-matrix version="1.0" type="framework" level="5">' > $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
 $(shell echo '    <hal format="aidl" optional="true"><name>android.hardware.cas</name><version>1</version><interface><name>IMediaCasService</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
 $(shell echo '    <hal format="hidl" optional="true"><name>android.hardware.configstore</name><version>1.1</version><interface><name>ISurfaceFlingerConfigs</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
 $(shell echo '    <hal format="aidl" optional="true"><name>android.hardware.drm</name><version>1</version><interface><name>IDrmFactory</name><instance>clearkey</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
@@ -187,6 +188,9 @@ $(shell echo '    <hal format="hidl" optional="true"><name>android.hardware.vibr
 $(shell echo '    <hal format="aidl" optional="true"><name>android.hardware.wifi</name><version>2</version><interface><name>IWifi</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
 $(shell echo '    <hal format="aidl" optional="true"><name>android.hardware.wifi.hostapd</name><version>2</version><interface><name>IHostapd</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
 $(shell echo '    <hal format="aidl" optional="true"><name>android.hardware.wifi.supplicant</name><version>3</version><interface><name>ISupplicant</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>android.hardware.bluetooth.audio</name><version>2.0</version><interface><name>IBluetoothAudioProvidersFactory</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>android.hardware.health</name><version>2.1</version><interface><name>IHealth</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
+$(shell echo '    <hal format="hidl" optional="true"><name>android.hardware.memtrack</name><version>1.0</version><interface><name>IMemtrack</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
 $(shell echo '    <hal format="hidl" optional="true"><name>vendor.display.color</name><version>1.0</version><interface><name>IDisplayColor</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
 $(shell echo '    <hal format="hidl" optional="true"><name>vendor.display.config</name><version>2.0</version><interface><name>IDisplayConfig</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
 $(shell echo '    <hal format="hidl" optional="true"><name>vendor.display.postproc</name><version>1.0</version><interface><name>IDisplayPostproc</name><instance>default</instance></interface></hal>' >> $(DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE))
@@ -301,7 +305,7 @@ TARGET_KERNEL_LLVM_BINUTILS := false
 
 # Kernel Clang
 TARGET_KERNEL_CLANG_COMPILE := true
-TARGET_KERNEL_CLANG_VERSION := r475365b
+TARGET_KERNEL_CLANG_VERSION := r547379
 
 # API Level
 BOARD_SHIPPING_API_LEVEL := 29
