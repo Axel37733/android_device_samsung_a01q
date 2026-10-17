@@ -1,0 +1,13 @@
+cc_binary {
+    name: "android.hardware.light-service.a01q",
+    relative_install_path: "hw",
+    init_rc: ["android.hardware.light-service.a01q.rc"],
+    vintf_fragments: ["android.hardware.light-service.a01q.xml"],
+    vendor: true,
+    shared_libs: [
+        "libbase",
+        "libbinder_ndk",
+        "android.hardware.light-V2-ndk",
+    ],
+    srcs: ["Lights.cpp", "main.cpp"],
+}

@@ -177,8 +177,6 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service \
     hwcomposer.qcom \
     gralloc.msm8937 \
     libdisplayconfig.qti \
@@ -389,5 +387,18 @@ PRODUCT_PACKAGES += \
 
 # Lights HAL
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service
+    android.hardware.light-service.a01q
 PRODUCT_SYSTEM_PROPERTIES += ro.kernel.ebpf.supported=false
+
+# libsqlite vendor para libsec-ril
+PRODUCT_PACKAGES += \
+    libsqlite.vendor
+
+# Memtrack AIDL (qcom-caf)
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.memtrack-service
+
+# protobuf 3.9.1 para libsec-ril y widevine
+PRODUCT_PACKAGES += \
+    libprotobuf-cpp-full-3.9.1-vendorcompat \
+    libprotobuf-cpp-lite-3.9.1-vendorcompat
