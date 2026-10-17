@@ -1,2 +1,9 @@
 soong_namespace {
 }
+
+prebuilt_hidl_interfaces {
+    name: "hidl_vendor_samsung_hardware_security_widevine_keyprov_interface",
+    interfaces: [
+        "vendor.samsung.hardware.security.widevine.keyprov@1.0::ISehWidevineKeyProvisioning",
+    ],
+}

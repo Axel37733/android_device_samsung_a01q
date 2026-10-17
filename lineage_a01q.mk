@@ -38,7 +38,7 @@ TARGET_VENDOR_PRODUCT_NAME := a01q
 PRODUCT_GMS_CLIENTID_BASE := android-samsung-ss
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="a01qxx-user 11 RP1A.200720.012 A015FXXU5BVG2 release-keys"
+    BuildDesc="a01qxx-user 11 RP1A.200720.012 A015FXXU5BVG2 release-keys"
 
 # Set BUILD_FINGERPRINT variable to be picked up by both system and vendor build.prop
 BUILD_FINGERPRINT := "samsung/a01qxx/a01q:11/RP1A.200720.012/A015FXXU5BVG2:user/release-keys"

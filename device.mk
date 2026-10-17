@@ -149,7 +149,6 @@ PRODUCT_COPY_FILES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0.vendor:32 \
-    android.hardware.bluetooth.a2dp@1.0.vendor:32 \
     android.hardware.bluetooth.audio@2.0-impl:32 \
     audio.bluetooth.default:32 \
     vendor.qti.hardware.btconfigstore@1.0.vendor:32 \
@@ -180,9 +179,8 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
-    hwcomposer.msm8937 \
+    hwcomposer.qcom \
     gralloc.msm8937 \
-    memtrack.msm8937 \
     libdisplayconfig.qti \
     libgralloc.qti \
     libqdMetaData \
@@ -301,12 +299,7 @@ PRODUCT_COPY_FILES += \
 
 # Omx
 PRODUCT_PACKAGES += \
-    libOmxAacEnc \
-    libOmxAmrEnc \
     libOmxCore \
-    libOmxEvrcEnc \
-    libOmxG711Enc \
-    libOmxQcelp13Enc \
     libOmxVdec \
     libOmxVenc \
     libc2dcolorconvert \
@@ -396,5 +389,5 @@ PRODUCT_PACKAGES += \
 
 # Lights HAL
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.aw2013
+    android.hardware.light@2.0-service
 PRODUCT_SYSTEM_PROPERTIES += ro.kernel.ebpf.supported=false
